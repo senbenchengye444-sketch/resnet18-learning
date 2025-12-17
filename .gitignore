@@ -1,0 +1,14 @@
+# 仮想環境を除外
+venv/
+
+# データセット本体を除外（dataフォルダ自体は残すが、中身の重いファイルを除外）
+data/*
+# ただし、data/README.md だけは例外としてGitHubに上げる
+!data/README.md
+
+# Pythonのキャッシュファイルを除外
+__pycache__/
+*.pyc
+
+# OS固有の隠しファイル (Macなど)
+.DS_Store

@@ -54,22 +54,6 @@ test_dataset = datasets.CIFAR10(
     root="./data", train=False, download=True, transform=transform_test
 )
 
-# ------------------------------------------------------------------------------
-# 注意: 以下は"デバッグ / 早期確認"のためにデータ量を10%に削減する処理です。
-# 実行時間短縮のために一時的に利用してください。実行後はこのブロックを削除してください。
-# ------------------------------------------------------------------------------
-def _subsample_dataset(dataset, fraction=0.1, seed=42):
-    total = len(dataset)
-    subset_size = max(1, int(total * fraction))
-    g = torch.Generator()
-    g.manual_seed(seed)
-    indices = torch.randperm(total, generator=g)[:subset_size].tolist()
-    return Subset(dataset, indices)
-
-# データ量を10%に削減（学習時間短縮用） — 必要なければ削除してください
-train_dataset = _subsample_dataset(train_dataset, fraction=0.1)
-test_dataset = _subsample_dataset(test_dataset, fraction=0.1)
-
 # DataLoaderの設定
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
@@ -171,7 +155,7 @@ def evaluate(model, loader):
 # ==============================================================================
 
 # エポック数の設定
-epochs = 5
+epochs = 50
 
 print(f"Start training on {device} for {epochs} epochs...")
 
